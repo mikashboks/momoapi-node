@@ -8,8 +8,7 @@
     "clean": "rm -r lib",
     "compile": "tsc -p tsconfig.json",
     "lint": "tslint --project tsconfig.json --config tslint.json \"{src,test}/**/*.ts\"",
-    "test": "NODE_ENV=test nyc mocha",
-    "commitmsg": "commitlint -e $GIT_PARAMS"
+    "test": "NODE_ENV=test nyc mocha"
   },
   "nyc": {
     "extension": [
@@ -70,12 +69,15 @@
   "directories": {
     "lib": "lib"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sparkplug/momoapi-node.git"
+    "url": "git+https://github.com/mikashboks/momoapi-node.git"
   },
   "bugs": {
-    "url": "https://github.com/sparkplug/momoapi-node/issues"
+    "url": "https://github.com/mikashboks/momoapi-node/issues"
   },
-  "homepage": "https://github.com/sparkplug/momoapi-node#readme"
+  "homepage": "https://github.com/mikashboks/momoapi-node#readme"
 }

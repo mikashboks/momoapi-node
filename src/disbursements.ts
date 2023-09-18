@@ -6,6 +6,7 @@ import { validateTransfer } from "./validate";
 
 import {
   Balance,
+  BasicUserInfo,
   FailureReason,
   PartyIdType,
   TransactionStatus
@@ -184,5 +185,25 @@ export default class Disbursements {
       .get<{ result: boolean }>(`/disbursement/v1_0/accountholder/${String(type).toLowerCase()}/${id}/active`)
       .then(response => response.data)
       .then(data => data.result ? data.result : false);
+  }
+
+  /**
+   * This method is used to get personal information of the account holder.
+   *
+   * @param id Specifies the type of the party ID. Allowed values [msisdn, email, party_code].
+   *   accountHolderId should explicitly be in small letters.
+   *
+   * @param type The party number. Validated according to the party ID type (case Sensitive).
+   *   msisdn - Mobile Number validated according to ITU-T E.164. Validated with IsMSISDN
+   *   email - Validated to be a valid e-mail format. Validated with IsEmail
+   *   party_code - UUID of the party. Validated with IsUuid
+   */
+  public getBasicUserInfo(
+    id: string,
+    type: PartyIdType = PartyIdType.MSISDN
+  ): Promise<BasicUserInfo> {
+    return this.client
+      .get<BasicUserInfo>(`/disbursement/v1_0/accountholder/${String(type).toLowerCase()}/${id}/basicuserinfo`)
+      .then(response => response.data);
   }
 }

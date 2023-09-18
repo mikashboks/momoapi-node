@@ -82,6 +82,16 @@ export interface Balance {
   currency: string;
 }
 
+export interface BasicUserInfo {
+  sub: string;
+  given_name: string;
+  family_name: string;
+  birth_date?: string;
+  locale?: string;
+  gender?: string;
+  status?: string;
+}
+
 export interface Party {
   partyIdType: PartyIdType;
   partyId: string;
