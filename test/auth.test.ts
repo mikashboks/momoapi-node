@@ -63,7 +63,7 @@ describe("Auth", function() {
       ).to.be.fulfilled.then(() => {
         expect(mockAdapter.history.post).to.have.lengthOf(1);
         expect(mockAdapter.history.post[0].url).to.eq("/collection/token/");
-        expect(mockAdapter.history.post[0].headers.Authorization).to.eq(
+        expect(mockAdapter.history.post[0].headers!.Authorization).to.eq(
           "Basic " + Buffer.from("id:secret").toString("base64")
         );
       });
@@ -78,7 +78,7 @@ describe("Auth", function() {
       ).to.be.fulfilled.then(() => {
         expect(mockAdapter.history.post).to.have.lengthOf(1);
         expect(mockAdapter.history.post[0].url).to.eq("/disbursement/token/");
-        expect(mockAdapter.history.post[0].headers.Authorization).to.eq(
+        expect(mockAdapter.history.post[0].headers!.Authorization).to.eq(
           "Basic " + Buffer.from("id:secret").toString("base64")
         );
       });

@@ -9,10 +9,14 @@ import {
   FailureReason,
   Party,
   PartyIdType,
-  TransactionStatus
+  TransactionStatus,
 } from "./common";
 
 export interface PaymentRequest {
+  /**
+   * Unique Transfer Reference (UUID v4), will be automatically generated if not explicitly supplied
+   */
+  referenceId?: string;
   /**
    * Amount that will be debited from the payer account
    */
@@ -123,16 +127,16 @@ export default class Collections {
    */
   public requestToPay({
     callbackUrl,
+    referenceId = uuid(),
     ...paymentRequest
   }: PaymentRequest): Promise<string> {
     return validateRequestToPay(paymentRequest).then(() => {
-      const referenceId: string = uuid();
       return this.client
         .post<void>("/collection/v1_0/requesttopay", paymentRequest, {
           headers: {
             "X-Reference-Id": referenceId,
-            ...(callbackUrl ? { "X-Callback-Url": callbackUrl } : {})
-          }
+            ...(callbackUrl ? { "X-Callback-Url": callbackUrl } : {}),
+          },
         })
         .then(() => referenceId);
     });
@@ -151,8 +155,8 @@ export default class Collections {
   public getTransaction(referenceId: string): Promise<Payment> {
     return this.client
       .get<Payment>(`/collection/v1_0/requesttopay/${referenceId}`)
-      .then(response => response.data)
-      .then(transaction => {
+      .then((response) => response.data)
+      .then((transaction) => {
         if (transaction.status === TransactionStatus.FAILED) {
           return Promise.reject(getTransactionError(transaction));
         }
@@ -167,7 +171,7 @@ export default class Collections {
   public getBalance(): Promise<Balance> {
     return this.client
       .get<Balance>("/collection/v1_0/account/balance")
-      .then(response => response.data);
+      .then((response) => response.data);
   }
 
   /**
@@ -186,8 +190,10 @@ export default class Collections {
     type: PartyIdType = PartyIdType.MSISDN
   ): Promise<boolean> {
     return this.client
-      .get<{result: boolean}>(`/collection/v1_0/accountholder/${type}/${id}/active`)
-      .then(response => response.data)
-      .then(data => data.result ? data.result : false);
+      .get<{ result: boolean }>(
+        `/collection/v1_0/accountholder/${type}/${id}/active`
+      )
+      .then((response) => response.data)
+      .then((data) => (data.result ? data.result : false));
   }
 }

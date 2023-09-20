@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, InternalAxiosRequestConfig } from "axios";
 
 import { handleError } from "./errors";
 
@@ -10,11 +10,8 @@ export function createClient(
   client: AxiosInstance = axios.create()
 ): AxiosInstance {
   client.defaults.baseURL = config.baseUrl;
-  client.defaults.headers = {
-    "Ocp-Apim-Subscription-Key": config.primaryKey,
-    "X-Target-Environment": config.environment || "sandbox"
-  };
-
+  client.defaults.headers[ "Ocp-Apim-Subscription-Key"] = config.primaryKey;
+  client.defaults.headers[ "X-Target-Environment"] = config.environment || "sandbox";
   return withErrorHandling(client);
 }
 
@@ -22,16 +19,16 @@ export function createAuthClient(
   refresh: TokenRefresher,
   client: AxiosInstance
 ): AxiosInstance {
-  client.interceptors.request.use((request: AxiosRequestConfig) => {
-    return refresh().then(accessToken => {
-      return {
-        ...request,
-        headers: {
-          ...request.headers,
-          Authorization: `Bearer ${accessToken}`
-        }
-      };
-    });
+  client.interceptors.request.use(async (request: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig>  => {
+    const accessToken = await refresh();
+    const updatedRequest: InternalAxiosRequestConfig = {
+      ...request,
+      headers: {
+        ...request.headers,
+        Authorization: `Bearer ${accessToken}`
+      } as AxiosRequestHeaders
+    };
+    return updatedRequest;
   });
 
   return client;

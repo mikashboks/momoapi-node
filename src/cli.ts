@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-import program from "commander";
+import { Command } from 'commander';
 
 import * as momo from "./";
 import { Credentials } from "./common";
 import { MtnMoMoError } from "./errors";
 
 const { version } = require("../package.json");
+const program = new Command();
 
 program
   .version(version)
@@ -17,12 +18,13 @@ program
 
 const stringify = (obj: object | string) => JSON.stringify(obj, null, 2);
 
-const { Users } = momo.create({ callbackHost: program.host });
+const options = program.opts();
+const { Users } = momo.create({ callbackHost: options.host });
 
-const users = Users({ primaryKey: program.primaryKey });
+const users = Users({ primaryKey: options.primaryKey });
 
 users
-  .create(program.host)
+  .create(options.host)
   .then((userId: string) => {
     return users.login(userId).then((credentials: Credentials) => {
       console.log(

@@ -110,10 +110,10 @@ describe("Collections", function() {
           "/collection/v1_0/requesttopay"
         );
         expect(mockAdapter.history.post[0].data).to.eq(JSON.stringify(request));
-        expect(mockAdapter.history.post[0].headers["X-Reference-Id"]).to.be.a(
+        expect(mockAdapter.history.post[0].headers!["X-Reference-Id"]).to.be.a(
           "string"
         );
-        expect(mockAdapter.history.post[0].headers["X-Callback-Url"]).to.eq(
+        expect(mockAdapter.history.post[0].headers!["X-Callback-Url"]).to.eq(
           "callback url"
         );
       });

@@ -94,7 +94,7 @@ export function handleError(error: AxiosError): Error {
     return error;
   }
 
-  const { code, message }: ErrorBody = error.response.data || {};
+  const { code, message }: ErrorBody = (error.response.data || {}) as ErrorBody;
 
   return getError(code, message);
 }

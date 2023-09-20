@@ -23,7 +23,7 @@ describe("Users", function() {
         expect(mockAdapter.history.post[0].data).to.eq(
           JSON.stringify({ providerCallbackHost: "host" })
         );
-        expect(mockAdapter.history.post[0].headers["X-Reference-Id"]).to.be.a(
+        expect(mockAdapter.history.post[0].headers!["X-Reference-Id"]).to.be.a(
           "string"
         );
       });
