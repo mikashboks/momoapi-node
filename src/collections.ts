@@ -138,7 +138,12 @@ export default class Collections {
             ...(callbackUrl ? { "X-Callback-Url": callbackUrl } : {}),
           },
         })
-        .then(() => referenceId);
+        .then(() => referenceId)
+        .catch((error) => {
+          console.error(error);
+          return Promise.reject(error);
+        })
+        ;
     });
   }
 

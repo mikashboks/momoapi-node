@@ -90,6 +90,7 @@ export class UnspecifiedError extends MtnMoMoError {
 }
 
 export function handleError(error: AxiosError): Error {
+  console.error(error);
   if (!error.response) {
     return error;
   }

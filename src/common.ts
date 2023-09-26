@@ -105,8 +105,19 @@ export enum PartyIdType {
 
 export enum Environment {
   SANDBOX = "sandbox",
-  PRODUCTION = "production"
+  MTN_UGANDA = "mtnuganda",
+  MTN_GHANA = "mtnghana",
+  MTN_IVORY_COAST = "mtnivorycoast",
+  MTN_ZAMBIA = "mtnzambia",
+  MTN_CAMEROON = "mtncameroon",
+  MTN_BENIN = "mtnbenin",
+  MTN_CONGO = "mtncongo",
+  MTN_SWAZILAND = "mtnswaziland",
+  MTN_GUINEA_CONAKRY = "mtnguineaconakry",
+  MTN_SOUTH_AFRICA = "mtnsouthafrica",
+  MTN_LIBERIA = "mtnliberia"
 }
+
 
 export enum TransactionStatus {
   SUCCESSFUL = "SUCCESSFUL",

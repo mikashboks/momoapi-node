@@ -36,8 +36,14 @@ export function createAuthClient(
 
 export function withErrorHandling(client: AxiosInstance): AxiosInstance {
   client.interceptors.response.use(
-    response => response,
-    error => Promise.reject(handleError(error))
+    response =>  {
+      console.debug(response);
+      return response
+    },
+    error =>  {
+      console.error(error);
+      Promise.reject(handleError(error))
+    }
   );
 
   return client;
