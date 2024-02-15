@@ -115,7 +115,8 @@ export enum Environment {
   MTN_SWAZILAND = "mtnswaziland",
   MTN_GUINEA_CONAKRY = "mtnguineaconakry",
   MTN_SOUTH_AFRICA = "mtnsouthafrica",
-  MTN_LIBERIA = "mtnliberia"
+  MTN_LIBERIA = "mtnliberia",
+  MTN_NIGERIA = "mtnnigeria",
 }
 
 
