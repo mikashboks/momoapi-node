@@ -1,6 +1,6 @@
 {
   "name": "@mikashboks/mtn-momo",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "MTN Mobile Money API Client for NodeJS written in TypeScript",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
