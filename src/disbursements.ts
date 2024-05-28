@@ -114,6 +114,7 @@ export default class Disbursements {
    * Transfer operation is used to transfer an amount from the owner’s
    * account to a payee account.
    * Status of the transaction can be validated by using the
+   * Uses - https://momoapi.mtn.com/API-collections#api=disbursement&operation=transfer-POST
    *
    * @param paymentRequest
    */
@@ -125,6 +126,32 @@ export default class Disbursements {
     return validateTransfer({ referenceId, ...payoutRequest }).then(() => {
       return this.client
         .post<void>("/disbursement/v1_0/transfer", payoutRequest, {
+          headers: {
+            "X-Reference-Id": referenceId,
+            ...(callbackUrl ? { "X-Callback-Url": callbackUrl } : {})
+          }
+        })
+        .then(() => referenceId);
+    });
+  }
+
+  /**
+   * Transfer operation is used to transfer an amount from the owner’s
+   * account to a payee account.
+   * Status of the transaction can be validated by using the
+   * 
+   * Calls - https://momoapi.mtn.com/API-collections#api=disbursement&operation=depositV1-POST
+   *
+   * @param paymentRequest
+   */
+  public payout({
+    callbackUrl,
+    referenceId = uuid(),
+    ...payoutRequest
+  }: TransferRequest): Promise<string> {
+    return validateTransfer({ referenceId, ...payoutRequest }).then(() => {
+      return this.client
+        .post<void>("/disbursement/v1_0/deposit", payoutRequest, {
           headers: {
             "X-Reference-Id": referenceId,
             ...(callbackUrl ? { "X-Callback-Url": callbackUrl } : {})

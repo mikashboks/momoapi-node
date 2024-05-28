@@ -196,9 +196,10 @@ export default class Collections {
   ): Promise<boolean> {
     return this.client
       .get<{ result: boolean }>(
-        `/collection/v1_0/accountholder/${type}/${id}/active`
+        `/collection/v1_0/accountholder/${String(type).toLowerCase()}/${id}/active`
       )
       .then((response) => response.data)
       .then((data) => (data.result ? data.result : false));
   }
 }
+

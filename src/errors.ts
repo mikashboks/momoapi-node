@@ -85,6 +85,10 @@ export class TransactionCancelledError extends MtnMoMoError {
   public name = "TransactionCancelledError";
 }
 
+export class LowBalanceORPayeeLimitReachedOrNotAllowedError extends MtnMoMoError {
+  public name = "LowBalanceORPayeeLimitReachedOrNotAllowedError";
+}
+
 export class UnspecifiedError extends MtnMoMoError {
   public name = "UnspecifiedError";
 }
@@ -97,7 +101,7 @@ export function handleError(error: AxiosError): Error {
 
   const { code, message }: ErrorBody = (error.response.data || {}) as ErrorBody;
 
-  return getError(code, message);
+  return getError(code, message || error.message);
 }
 
 export function getError(code?: FailureReason, message?: string) {
@@ -169,11 +173,15 @@ export function getError(code?: FailureReason, message?: string) {
     return new TransactionCancelledError(message);
   }
 
+  if (code === FailureReason.LOW_BALANCE_OR_PAYEE_LIMIT_REACHED_OR_NOT_ALLOWED) {
+    return new LowBalanceORPayeeLimitReachedOrNotAllowedError(message);
+  }
+
   return new UnspecifiedError(message);
 }
 
 export function getTransactionError(transaction: Payment | Transfer) {
-  const error: MtnMoMoError = getError(transaction.reason as FailureReason);
+  const error: MtnMoMoError = getError(transaction.reason as FailureReason, transaction.reason);
   error.transaction = transaction;
 
   return error;
