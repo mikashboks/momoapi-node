@@ -85,7 +85,7 @@ export class TransactionCancelledError extends MtnMoMoError {
   public name = "TransactionCancelledError";
 }
 
-export class LowBalanceORPayeeLimitReachedOrNotAllowedError extends MtnMoMoError {
+export class LowBalanceOrPayeeLimitReachedOrNotAllowedError extends MtnMoMoError {
   public name = "LowBalanceORPayeeLimitReachedOrNotAllowedError";
 }
 
@@ -174,7 +174,7 @@ export function getError(code?: FailureReason, message?: string) {
   }
 
   if (code === FailureReason.LOW_BALANCE_OR_PAYEE_LIMIT_REACHED_OR_NOT_ALLOWED) {
-    return new LowBalanceORPayeeLimitReachedOrNotAllowedError(message);
+    return new LowBalanceOrPayeeLimitReachedOrNotAllowedError(message);
   }
 
   return new UnspecifiedError(message);
