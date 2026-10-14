@@ -41,7 +41,7 @@ describe("Validate", function() {
             expect(
               validateGlobalConfig.bind(null, {
                 callbackHost: "example.com",
-                environment: Environment.PRODUCTION
+                environment: Environment.MTN_UGANDA
               })
             ).to.throw(
               AssertionError,
@@ -55,7 +55,7 @@ describe("Validate", function() {
             expect(
               validateGlobalConfig.bind(null, {
                 callbackHost: "example.com",
-                environment: Environment.PRODUCTION,
+                environment: Environment.MTN_UGANDA,
                 baseUrl: "mtn production base url"
               })
             ).to.not.throw();

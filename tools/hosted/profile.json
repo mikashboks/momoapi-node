@@ -1,0 +1,37 @@
+{
+  "repository": "mikashboks/momoapi-node",
+  "node_version": "22.22.3",
+  "java_version": null,
+  "tool_environment": {},
+  "node_units": [
+    {
+      "directory": ".",
+      "manager": "yarn-classic",
+      "lockfile": "yarn.lock"
+    }
+  ],
+  "required_tools": [],
+  "prepare_commands": [],
+  "install_commands": [],
+  "check_commands": [
+    {
+      "argv": [
+        "npm",
+        "run",
+        "compile"
+      ],
+      "directory": "."
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "test"
+      ],
+      "directory": "."
+    }
+  ],
+  "install_blockers": [],
+  "notes": [],
+  "hosted_runtime_validation": "pending"
+}
