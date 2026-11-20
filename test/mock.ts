@@ -29,8 +29,8 @@ export function createMock(): [AxiosInstance, MockAdapter] {
   } as AccessToken);
 
   mock
-    .onGet(/\/collection\/v1_0\/accountholder\/(MSISDN|EMAIL|PARTY_CODE)\/\w+/)
-    .reply(200, "true");
+    .onGet(/\/collection\/v1_0\/accountholder\/(msisdn|email|party_code)\/\w+\/active$/)
+    .reply(200, { result: true });
 
   mock.onPost("/collection/v1_0/requesttopay").reply(201);
 

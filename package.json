@@ -8,7 +8,7 @@
     "clean": "rm -r ./dist",
     "compile": "tsc -p tsconfig.json",
     "lint": "tslint --project tsconfig.json --config tslint.json \"{src,test}/**/*.ts\"",
-    "test": "mocha -r ts-node/register 'test/**/*.ts'"
+    "test": "node scripts/test.cjs"
   },
   "nyc": {
     "extension": [
